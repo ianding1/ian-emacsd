@@ -117,6 +117,8 @@
 ;; Theme
 (use-package doom-themes
   :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t)
   (load-theme 'doom-one t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
@@ -158,11 +160,10 @@
   :config
   (setq neo-window-width 32
         neo-create-file-auto-open t
-        neo-banner-message nil
         neo-show-updir-line t
         neo-window-fixed-size nil
-        neo-mode-line-type 'neotree
         neo-smart-open t
+        neo-mode-line-type 'none
         neo-auto-indent-point t)
   :bind (("C-c n" . neotree-toggle)))
 
