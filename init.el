@@ -65,6 +65,8 @@
 (setq inhibit-splash-screen t)
 (setq x-stretch-cursor t)
 
+(global-auto-revert-mode 1)
+
 ;; Use eshell as the initial buffer
 ;;(setq initial-buffer-choice #'eshell)
 
@@ -150,6 +152,10 @@
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
+
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode t))
 
 (use-package gitattributes-mode)
 (use-package gitconfig-mode)
