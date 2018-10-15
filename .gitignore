@@ -1,0 +1,16 @@
+# User private configurations
+custom.el
+private.el
+
+# Backup files
+*~
+
+# Caches
+.mc-lists.el
+auto-save-list/
+elpa/
+eshell/
+recentf
+saves/
+smex-items
+undo/
