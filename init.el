@@ -16,6 +16,8 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 
+(package-initialize)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -63,6 +65,9 @@
 (setq inhibit-splash-screen t)
 (setq x-stretch-cursor t)
 
+;; Use eshell as the initial buffer
+;;(setq initial-buffer-choice #'eshell)
+
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file t t))
@@ -106,6 +111,8 @@
 
 ;; Ask before quitting.
 (setq confirm-kill-emacs 'y-or-n-p)
+
+(global-set-key (kbd "C-c e") #'eshell)
 
 ;; Theme
 (use-package doom-themes
@@ -174,7 +181,9 @@
   :bind (("C-=" . er/expand-region)))
 
 (use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
 
 (use-package ws-butler
   :hook (prog-mode . ws-butler-mode))
@@ -231,12 +240,6 @@
    ("S-Z" . undo-tree-redo)
    ("C-c u" . undo-tree-visualize)))
 
-;; Always move up and down in visual lines.
-(global-visual-line-mode 1)
-
-;; Highlight current line
-(global-hl-line-mode 1)
-
 (use-package yasnippet
   :config
   (yas-global-mode 1))
@@ -244,6 +247,8 @@
 (use-package multi-term
   :config
   (setq multi-term-program "/bin/bash"))
+
+(global-visual-line-mode)
 
 (provide 'init)
 ;;; init.el ends here
