@@ -171,6 +171,14 @@
         neo-smart-open t
         neo-mode-line-type 'none
         neo-auto-indent-point t)
+  ;; Do not wrap the lines in neotree
+  (add-hook 'neo-after-create-hook
+            #'(lambda (_)
+                (with-current-buffer (get-buffer neo-buffer-name)
+                  (setq truncate-lines t)
+                  (setq word-wrap nil)
+                  (make-local-variable 'auto-hscroll-mode)
+                  (setq auto-hscroll-mode nil))))
   :bind (("C-c n" . neotree-toggle)))
 
 (use-package dired-subtree
