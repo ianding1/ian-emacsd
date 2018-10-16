@@ -34,9 +34,11 @@
 (scroll-bar-mode -1)
 (show-paren-mode 1)
 
-;; Show the menubar in macOS.
 (when (memq window-system '(mac ns))
-  (menu-bar-mode))
+  ;; Show the menubar in macOS.
+  (menu-bar-mode)
+  ;; Transparent title bar
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 
 (setq enable-recursive-minibuffers t    ; Use ivy even in minibuffer
       minibuffer-depth-indicate-mode t  ; Indicate the recursive depth
