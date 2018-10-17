@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: post
+# key: post
+# --
+---
+layout: post
+title: "${1:post title}"
+date: ${2:TBD}
+banner_image: $3
+tags: [$4]
+---
+
+$0
