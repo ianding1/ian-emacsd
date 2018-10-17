@@ -265,6 +265,10 @@
   :config
   (setq multi-term-program "/bin/bash"))
 
+(use-package vi-tilde-fringe
+  :config
+  (global-vi-tilde-fringe-mode))
+
 (global-visual-line-mode)
 
 (provide 'init)
