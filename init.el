@@ -210,7 +210,7 @@
          ("M-S-RET" . crux-smart-open-line-above)
          ("M-RET" . crux-smart-open-line)
          ("C-^" . crux-top-join-line)
-         ("C-c d" . crux-duplicate-current-line-or-region)
+         ("C-c y" . crux-duplicate-current-line-or-region)
          ("C-c k" . crux-kill-other-buffers)
          ("C-x 4 t" . crux-transpose-windows)))
 
@@ -270,6 +270,22 @@
   (global-vi-tilde-fringe-mode))
 
 (global-visual-line-mode)
+
+(use-package dumb-jump
+  :config
+  (setq dumb-jump-selector 'ivy)
+  (setq dumb-jump-aggressive nil)
+  (setq dumb-jump-use-visible-window t)
+  :bind
+  (("M-g d" . dumb-jump-go)
+   ("M-g t" . dumb-jump-back)
+   ("M-g q" . dumb-jump-quick-look)
+   ("M-g D" . dumb-jump-go-other-window)
+   ("M-g x" . dumb-jump-go-prompt)))
+
+(use-package which-key
+  :config
+  (which-key-mode))
 
 (provide 'init)
 ;;; init.el ends here
