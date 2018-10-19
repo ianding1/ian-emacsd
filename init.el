@@ -132,15 +132,15 @@
   :hook (after-init . doom-modeline-init))
 
 ;; Ivy
-(use-package ivy
-  :config
+(use-package counsel
+  :init
   (ivy-mode 1)
+  (counsel-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-use-selectable-prompt t)
   :bind
   (("C-c s" . swiper)
    ("C-c r" . ivy-resume)
-   ("C-x C-f" . counsel-find-file)
    ("C-c g" . counsel-git)
    ("C-c j" . counsel-git-grep)
    ("C-c k" . counsel-ag)
