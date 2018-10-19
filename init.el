@@ -49,7 +49,7 @@
       fill-column 78
       set-mark-command-repeat-pop t
       sentence-end-double-space nil     ; Sentence ends in one space
-      help-window-select t)             ; Select the help window
+      )
 
 (fset 'yes-or-no-p 'y-or-n-p)           ; Use y/n instead of yes/no
 
