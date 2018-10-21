@@ -43,13 +43,14 @@
 (setq enable-recursive-minibuffers t    ; Use ivy even in minibuffer
       minibuffer-depth-indicate-mode t  ; Indicate the recursive depth
       delete-by-moving-to-trash t
-      tab-width 4
-      indent-tabs-mode nil
       show-paren-mode t
-      fill-column 78
       set-mark-command-repeat-pop t
       sentence-end-double-space nil     ; Sentence ends in one space
       )
+
+(setq-default tab-width 8
+              indent-tabs-mode nil
+              fill-column 78)
 
 (fset 'yes-or-no-p 'y-or-n-p)           ; Use y/n instead of yes/no
 
@@ -189,25 +190,18 @@
               (";" . dired-subtree-remove)))
 
 (use-package multiple-cursors
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)))
+  :bind (("C-<" . mc/edit-lines)
+         ("C->" . mc/mark-more-like-this-extended)))
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
-
-(use-package smartparens
-  :hook (prog-mode . smartparens-mode)
-  :config
-  (require 'smartparens-config))
 
 (use-package ws-butler
   :hook (prog-mode . ws-butler-mode))
 
 (use-package crux
   :bind (("C-k" . crux-smart-kill-line)
-         ("M-S-RET" . crux-smart-open-line-above)
+         ("<M-S-return>" . crux-smart-open-line-above)
          ("M-RET" . crux-smart-open-line)
          ("C-^" . crux-top-join-line)
          ("C-c y" . crux-duplicate-current-line-or-region)
@@ -239,7 +233,8 @@
   :config
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
-  (setq TeX-PDF-mode t))
+  (setq TeX-PDF-mode t)
+  :mode "\\.tex\\'")
 
 (use-package esup
   :commands (esup))
@@ -251,11 +246,10 @@
         undo-tree-auto-save-history t
         undo-tree-visualizer-timestamps t
         undo-tree-visualizer-diff t)
-  :bind
-  (("C-/" . undo-tree-undo)
-   ("S-z" . undo-tree-undo)
-   ("S-Z" . undo-tree-redo)
-   ("C-c u" . undo-tree-visualize)))
+  (global-set-key (kbd "C-/") 'undo-tree-undo)
+  (global-set-key (kbd "S-z") 'undo-tree-undo)
+  (global-set-key (kbd "S-Z") 'undo-tree-redo)
+  (global-set-key (kbd "C-c u") 'undo-tree-visualize))
 
 (use-package yasnippet
   :config
@@ -263,7 +257,8 @@
 
 (use-package multi-term
   :config
-  (setq multi-term-program "/bin/bash"))
+  (setq multi-term-program "/bin/bash")
+  :commands (multi-term))
 
 (use-package vi-tilde-fringe
   :config
@@ -274,7 +269,6 @@
 (use-package dumb-jump
   :config
   (setq dumb-jump-selector 'ivy)
-  (setq dumb-jump-aggressive nil)
   (setq dumb-jump-use-visible-window t)
   :bind
   (("M-g d" . dumb-jump-go)
@@ -286,6 +280,25 @@
 (use-package which-key
   :config
   (which-key-mode))
+
+(electric-pair-mode 1)
+
+(use-package simpleclip
+  :config
+  (simpleclip-mode 1))
+
+(defun kill-other-buffer ()
+  "Kill the buffer in the other window.
+
+If the buffer in the other window is the same as in the current window, it does nothing."
+  (interactive)
+  (let ((buf (current-buffer)))
+    (save-selected-window
+      (other-window 1)
+      (unless (eq (current-buffer) buf)
+        (kill-buffer (current-buffer))))))
+
+(global-set-key (kbd "C-c q") 'kill-other-buffer)
 
 (provide 'init)
 ;;; init.el ends here
