@@ -298,7 +298,9 @@ If the buffer in the other window is the same as in the current window, it does 
       (unless (eq (current-buffer) buf)
         (kill-buffer (current-buffer))))))
 
-(global-set-key (kbd "C-c q") 'kill-other-buffer)
+(global-set-key (kbd "C-c l") 'kill-other-buffer)
+(global-set-key (kbd "C-c m") 'man)
+(global-set-key (kbd "C-c c") 'compile)
 
 (provide 'init)
 ;;; init.el ends here
