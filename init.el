@@ -46,6 +46,7 @@
       show-paren-mode t
       set-mark-command-repeat-pop t
       sentence-end-double-space nil     ; Sentence ends in one space
+      column-number-mode t
       )
 
 (setq-default tab-width 8
@@ -184,11 +185,6 @@
                   (setq auto-hscroll-mode nil))))
   :bind (("C-c n" . neotree-toggle)))
 
-(use-package dired-subtree
-  :bind (:map dired-mode-map
-              ("i" . dired-subtree-insert)
-              (";" . dired-subtree-remove)))
-
 (use-package multiple-cursors
   :bind (("C-<" . mc/edit-lines)
          ("C->" . mc/mark-more-like-this-extended)))
@@ -213,6 +209,12 @@
   (global-flycheck-mode))
 
 (use-package haskell-mode
+  :config
+  (setq haskell-process-suggest-remove-import-lines t
+        haskell-process-auto-import-loaded-modules t)
+  (require 'haskell-interactive-mode)
+  (require 'haskell-process)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
   :commands haskell-mode
   :mode "\\.hs\\'")
 
@@ -234,7 +236,7 @@
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq TeX-PDF-mode t)
-  :mode "\\.tex\\'")
+  :mode ("\\.tex\\'" . TeX-mode))
 
 (use-package esup
   :commands (esup))
